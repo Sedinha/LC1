@@ -176,6 +176,37 @@ Este documento serve como **ponto de entrada central** para uma IA responder que
    - Alinhar subprovas com indentação para visualizar escopo
    - Documentar o conjunto ativo de premissas em cada etapa da prova
 
+6. **Notação e Representação em Árvore**
+   - Justificativa: Cada passo de inferência na árvore deve ser justificado com o nome da regra (ex: →e, →i, Ax).
+
+   - Hipóteses Temporárias: Marque claramente as hipóteses com colchetes e um índice numérico para indicar sua ordem, ex: [p]¹, [p → q]².
+
+   - Axioma (Ax): Use (Ax) para indicar que uma fórmula é uma hipótese assumida naquela linha da prova. O sequente φ ⊢ φ é um axioma.
+
+   - Descarregamento Explícito: Ao aplicar a regra →i, indique qual hipótese está sendo descarregada usando seu índice. Ex: (→i)¹.
+
+   - Estrutura Visual: A árvore organiza visualmente as dependências. As premissas de uma regra ficam acima da linha, e a conclusão, abaixo. Isso torna o escopo de cada subprova evidente.
+
+   
+**Exemplo de Aplicação da Notação em Árvore:**
+
+Para provar ⊢ (p → q → r) → (p → q) → p → r:
+```
+      [p]³         [p → q]²              [p]³    [p → (q → r)]¹
+      ---- (Ax)    -------- (Ax)          ---- (Ax) ----------- (Ax)
+      p ⊢ p        p→q ⊢ p→q              p ⊢ p   p→(q→r)⊢p→(q→r)
+      -------------------- (→e)          ------------------------- (→e)
+             p, [p→q]² ⊢ q                     p, [p→(q→r)]¹ ⊢ q→r
+      ------------------------------------------------------------------ (→e)
+                         [p→(q→r)]¹, [p→q]², [p]³ ⊢ r
+                  ---------------------------------------------------- (→i)³
+                          [p→(q→r)]¹, [p→q]² ⊢ p → r
+                   --------------------------------------------------- (→i)²
+                           [p→(q→r)]¹ ⊢ (p → q) → p → r
+                    -------------------------------------------------- (→i)¹
+                            ⊢ (p → q → r) → (p → q) → p → r
+```
+
 ---
 
 ## Arquivos de Apoio por Tópico
